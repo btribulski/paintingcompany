@@ -1,0 +1,22 @@
+Jan 26 15:08:22  [info] $backTrace = #0 /home/paintco/public_html/sites/all/modules/civicrm/CRM/Core/Error.php(229): CRM_Core_Error::backtrace("backTrace", TRUE)
+#1 [internal function](): CRM_Core_Error::simpleHandler(Object(DB_Error))
+#2 /home/paintco/public_html/sites/all/modules/civicrm/packages/PEAR.php(931): call_user_func((Array:2), Object(DB_Error))
+#3 /home/paintco/public_html/sites/all/modules/civicrm/packages/DB.php(968): PEAR_Error->PEAR_Error("DB Error: no such field", -19, 16, (Array:2), "SELECT *,  config_backend, locales, locale_custom_strings  \n FROM civicrm_do...")
+#4 /home/paintco/public_html/sites/all/modules/civicrm/packages/PEAR.php(564): DB_Error->DB_Error(-19, 16, (Array:2), "SELECT *,  config_backend, locales, locale_custom_strings  \n FROM civicrm_do...")
+#5 /home/paintco/public_html/sites/all/modules/civicrm/packages/DB/common.php(1903): PEAR->raiseError(NULL, -19, NULL, NULL, "SELECT *,  config_backend, locales, locale_custom_strings  \n FROM civicrm_do...", "DB_Error", TRUE)
+#6 /home/paintco/public_html/sites/all/modules/civicrm/packages/DB/mysql.php(898): DB_common->raiseError(-19, NULL, NULL, NULL, "1054 ** Unknown column 'locale_custom_strings' in 'field list'")
+#7 /home/paintco/public_html/sites/all/modules/civicrm/packages/DB/mysql.php(327): DB_mysql->mysqlRaiseError()
+#8 /home/paintco/public_html/sites/all/modules/civicrm/packages/DB/common.php(1216): DB_mysql->simpleQuery("SELECT *,  config_backend, locales, locale_custom_strings  \n FROM civicrm_do...")
+#9 /home/paintco/public_html/sites/all/modules/civicrm/packages/DB/DataObject.php(2421): DB_common->query("SELECT *,  config_backend, locales, locale_custom_strings  \n FROM civicrm_do...")
+#10 /home/paintco/public_html/sites/all/modules/civicrm/packages/DB/DataObject.php(441): DB_DataObject->_query("SELECT *,  config_backend, locales, locale_custom_strings  \n FROM civicrm_do...")
+#11 /home/paintco/public_html/sites/all/modules/civicrm/CRM/Core/BAO/ConfigSetting.php(202): DB_DataObject->find(TRUE)
+#12 /home/paintco/public_html/sites/all/modules/civicrm/CRM/Core/Config.php(404): CRM_Core_BAO_ConfigSetting::retrieve((Array:0))
+#13 /home/paintco/public_html/sites/all/modules/civicrm/CRM/Core/Config.php(197): CRM_Core_Config->_initVariables()
+#14 /home/paintco/public_html/sites/all/modules/civicrm/drupal/civicrm.module(283): CRM_Core_Config::singleton()
+#15 /home/paintco/public_html/sites/all/modules/civicrm/drupal/civicrm.module(956): civicrm_initialize()
+#16 [internal function](): civicrm_preprocess_page((Array:48), "page")
+#17 /home/paintco/public_html/includes/theme.inc(710): call_user_func_array("civicrm_preprocess_page", (Array:2))
+#18 /home/paintco/public_html/index.php(35): theme("page", "<div id=\"node-2\" class=\"node node-mine node-type-page\"><div class=\"node-...")
+#19 {main}
+
+

@@ -1,0 +1,114 @@
+/* $Id: poll.css,v 1.6 2008/01/22 07:47:57 goba Exp $ */
+
+/*
+ * CSS For Nightly Reporting
+ */
+ 
+
+#color-choice {
+	clear:both;
+	display:block;
+}
+
+#color-choice .bar {
+  height: 1em;
+  margin: 1px 0;
+  background-color: #ddd;
+}
+#color-choice .bar .foreground {
+  background-color: #000;
+  height: 1em;
+  float: left; /* LTR */
+}
+#color-choice .links {
+  text-align: center;
+}
+#color-choice .percent {
+  text-align: right; /* LTR */
+}
+#color-choice .total {
+  text-align: center;
+}
+#color-choice .vote-form .choices .title {
+  font-weight: bold;
+}
+
+#color-choice .color-choice-line {
+	display:block;
+	border: 1px dashed #666;
+	overflow:auto;
+	margin: 5px 3px;
+	padding:2px;
+}
+#color-choice .color-choice-customer,
+#color-choice .color-choice-project{
+	clear:both;
+	
+	
+}
+#color-choice .form-item {
+	float:left;
+	vertical-align:top;
+	margin:0 3px  !important;
+}
+#customer-data-wrapper .form-text,
+#job-data-wrapper .form-text,
+#color-choice .form-text {
+  width: auto;
+}
+#color-choice .form-item .container-inline-date,
+#color-choice .date-clear-block {
+clear:none !important;
+display:inline;
+float:left !important;
+}
+
+/* Customer Area */
+#edit-first-name-wrapper,
+#edit-last-name-wrapper,
+#edit-address-wrapper,
+#edit-city-wrapper,
+#edit-state-wrapper,
+#edit-zip-wrapper,
+#edit-phone-home-wrapper,
+#edit-phone-mobile-wrapper{
+	padding:0;
+	margin:0;
+	float:left;
+}
+#edit-email-wrapper,
+#edit-phone-home-wrapper
+{
+	clear:both;
+}
+
+
+/*
+ * View page
+ */
+ 
+ .node-type-color-choices .field {
+ 	/*
+	float:left;
+	display: inline-block;
+	*/
+ }
+ .node-type-color-choices .field-label,
+ .node-type-color-choices .field-items {
+ 	display:block;
+ }
+ 
+ .color-choices h2 {
+ 	margin:10px 0 0 0;
+	padding:0;
+ }
+ .color-choice-table {
+ 	border: 1px solid #666;
+	font-size: 0.8em;
+ }
+ .color-choice-table .header-row {
+ 	background-color:#CC0000;
+	color:#FFF;
+	font-weight:bold;
+ }
+ 

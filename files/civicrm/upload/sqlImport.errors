@@ -1,0 +1,37 @@
+"Line Number","Reason","- do not import -","First Name","Last Name","Street Address - Home","City - Home","Postal Code - Home","State - Home","Phone - Home - Phone","Email - Home","Type of Work","Address Name - Home","Areas to Be Done","Notes about Work","How You Heard About Us","County"
+"70","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=78
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=77","78","Glen","Collins","2125 14th St., N.W.  Unit 623","Washington","20009","DC","202-255-1539","jgcollins40@yahoo.com","","","","","",""
+"71","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=78
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=77","77","Glen","Collins","2125 14th St., N.W.  Unit 623","Washington","20009","DC","202-255-1539","jgcollins40@yahoo.com","","","","","",""
+"115","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=122
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=123","122","Vernon","McCauley","9501 Michaels Way","Ellicott Cuty,","21042","MD","4104652651","big-v@comcast.net","","","","","",""
+"116","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=122
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=123","123","Vernon","McCauley","9501 Michaels Way","Ellicott Cuty,","21042","MD","4104652651","big-v@comcast.net","","","","","",""
+"161","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=169
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=168","169","yalonda","Beverly","","","","","202-415-0264","yalonda.r.beverly@irs.gov","","","","","",""
+"162","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=169
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=168","168","yalonda","Beverly","","","","","202-415-0264","yalonda.r.beverly@irs.gov","","","","","",""
+"251","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=258
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=259","258","Dawn","Wetzel","301 East Middle Street","Hanover","17331","PA","410-258-1822","d.wetzel85@yahoo.com","","","","","",""
+"252","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=258
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=259","259","Dawn","Wetzel","301 East Middle Street","Hanover","17331","PA","410-258-1822","d.wetzel85@yahoo.com","","","","","",""
+"306","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=314
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=315","315","LeAnne","Anies","3714 Mayberry Avenue, Unit D","Baltimore","21206","MD","2024097513","leanneanies@mris.com","","","","","",""
+"318","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=326
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=329","329","Rhonda F.","Dyson","1028 Saffell Rd.","Reisterstown","21136","MD","410-786-4505","rhonda.dyson@cms.hhs.gov","","","","","",""
+"319","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=327
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=331","331","James","Burnham","1213 S Hanover St","Baltimore","21230","MD","9175261343","fsugoose4@hotmail.com","","","","","",""
+"322","Record duplicates multiple contacts
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=330
+http://test.paintingcompany.com/civicrm/contact/view?reset=1&amp;cid=334","334","Sara","Klucking","1825 BURKE ST SE","Washington","20003","DC","404 509-9725","sara.klucking@gmail.com","","","","","",""

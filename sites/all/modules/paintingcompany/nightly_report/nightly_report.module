@@ -1,0 +1,671 @@
+<?php
+
+/**
+ * Implementation of hook_init().
+ */
+function nightly_report_init() {
+ 
+  drupal_add_css(drupal_get_path('module', 'nightly_report') .'/nightly_report.css');
+}
+
+function nightly_report_nodeapi(&$node, $op) {
+  	if($node->type =='nightly_report'){
+		switch ($op) {
+			case 'load':
+				$i=0;
+				$sql = "SELECT nid,uid,first_name,last_name,email,phone_home,phone_mobile,county,total_price,from_date,to_date,crew,amount_collected
+						FROM {sold_job} 
+						WHERE nid = %d
+						ORDER BY id ASC";
+				$result = db_query ($sql, $node->nid);
+				while ($row = db_fetch_object($result)) {
+					$node->sold_job[$i]['uid'] = $row->uid;
+					$node->sold_job[$i]['first_name'] = $row->first_name;
+					$node->sold_job[$i]['last_name'] = $row->last_name;
+					$node->sold_job[$i]['email'] = $row->email;
+					$node->sold_job[$i]['phone_home'] = $row->phone_home;
+					$node->sold_job[$i]['phone_mobile'] = $row->phone_mobile;
+					$node->sold_job[$i]['county'] = $row->county;
+					$node->sold_job[$i]['total_price'] = $row->total_price;
+					$node->sold_job[$i]['from_date'] = $row->from_date;
+					$node->sold_job[$i]['to_date'] = $row->to_date;
+					$node->sold_job[$i]['crew'] = $row->crew;
+					$node->sold_job[$i]['amount_collected'] = $row->amount_collected;
+					
+					$i++;	
+				}
+				
+				
+				  
+				break;
+			case 'insert':
+				_sold_job_db_insert($node);
+				break;
+			case 'update':
+				db_query ('DELETE FROM {sold_job} where nid = %d', $node->nid);
+				_sold_job_db_insert($node);
+				break;
+			case 'view':
+				//$node->sold_job_html = theme('nightly_report_sold_jobs',$node->sold_job);
+				//$node->sold_job_html = theme_sold_jobs($node->sold_job);
+				break;
+			case 'delete':
+				db_query ('DELETE FROM {sold_job} where nid = %d', $node->nid);
+				break;	
+			
+		}//end of $op switch
+	}//End of check for $node->type		
+}
+/**
+ * Implementation of hook_menu().
+ */
+function nightly_report_menu(){
+	$items['sold-jobs/js'] = array(
+		'title' => 'Javascript Sold Jobs Form',
+		'page callback' => 'sold_jobs_js',
+		'access arguments' => array('access content'),
+		'type' => MENU_CALLBACK,
+  	);
+	$items['admin/function/reference'] =array(
+		'title' => 'User Function Reference',
+		'page callback' => 'nightly_report_user_functions',
+		'access arguments' => array('access administration menu'),
+		'type' => MENU_CALLBACK,
+	);
+
+	return $items;
+} 
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function nightly_report_form_alter (&$form, &$form_state, $form_id) {
+	
+	switch ($form_id) {
+		case 'nightly_report_node_form':
+			$node = $form['#node'];
+			
+			
+			$form['#cache']=TRUE;
+			$form['body_field']['body']['#description'] = t('enter est done that day as Follows: Gummel $2678 cb sun getting another est');
+			if ($form['title']['#default_value'] =='') $form['title']['#default_value'] = nightly_report_auto_title();
+		  
+		  if (isset($form_state['value']['sold_job_count'])) {
+			$sold_job_count = $form_state['value']['sold_job_count'];
+		  }
+		  else {
+			$sold_job_count = max(2, empty($node->sold_job) ? 2 : count($node->sold_job));
+		  }
+		  
+		  // Add a wrapper for the sold jobs and more button.
+		  $form['sold_job_wrapper'] = array(
+		  	'#type' => 'fieldset',
+			'#title' => 'Jobs Sold',
+			'#description'=> t('Details about the jobs you have sold'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#tree' => FALSE,
+			'#prefix' => '<div class="clear-block" id="sold-job-wrapper">',
+			'#suffix' => '</div>',
+		  );
+		  		
+		  // Container for just the Sold Job Entry Fields.
+		  $form['sold_job_wrapper']['sold_job'] = array(
+			'#prefix' => '<div id="sold-job">',
+			'#suffix' => '</div>',
+			'#theme' => 'sold_jobs',
+		  );
+		  
+		 $form['sold_job_wrapper']['sold_job']['sold_job_count'] = array(
+		  	'#type' => 'hidden',
+			'#default_value' => $sold_job_count,
+		  );
+		  
+		  $form['sold_job_wrapper']['sold_job_more'] = array(
+			'#type' => 'button',
+			'#value' => t('Add More Jobs'),
+			'#description' => t("If the amount of sold jobs above isn't enough, click here to add more."),
+			'#weight' => 25,
+			//'#submit' => array('nightly_report_more_jobs_submit'), // If no javascript action.
+			'#ahah' => array(
+				  'event' => 'click', 
+				  'path' => 'sold-jobs/js',
+				  'wrapper' => 'sold-job',
+				  'method' => 'replace',
+				  'effect' => 'fade',
+			 ),
+		  	);
+		  
+		  // Add the current sold jobs to the form.
+		  for ($delta = 0; $delta < $sold_job_count; $delta++) {
+			
+			$first_name = isset($node->sold_job[$delta]['first_name']) ? $node->sold_job[$delta]['first_name'] : '';
+			$last_name = isset($node->sold_job[$delta]['last_name']) ? $node->sold_job[$delta]['last_name'] : '';
+			$email = isset($node->sold_job[$delta]['email']) ? $node->sold_job[$delta]['email'] : '';
+			$total_price = isset($node->sold_job[$delta]['total_price']) ? $node->sold_job[$delta]['total_price'] : '';
+			$from_date = isset($node->sold_job[$delta]['from_date']) ? $node->sold_job[$delta]['from_date'] : '';
+			$to_date = isset($node->sold_job[$delta]['to_date']) ? $node->sold_job[$delta]['to_date'] : '';
+			$crew = isset($node->sold_job[$delta]['crew']) ? $node->sold_job[$delta]['crew'] : '';
+			$phone_home = isset($node->sold_job[$delta]['phone_home']) ? $node->sold_job[$delta]['phone_home'] : '';
+			$phone_mobile = isset($node->sold_job[$delta]['phone_mobile']) ? $node->sold_job[$delta]['phone_mobile'] : '';
+			$county = isset($node->sold_job[$delta]['county']) ? $node->sold_job[$delta]['county'] : '';
+			$amount_collected = isset($node->sold_job[$delta]['amount_collected']) ? $node->sold_job[$delta]['amount_collected'] : '';
+		
+			$form['sold_job_wrapper']['sold_job'][$delta] = _sold_job_form($delta, $first_name, $last_name, $email, $total_price, $from_date, $to_date, $crew, $phone_home, $phone_mobile, $county, $amount_collected);
+		  }
+		  
+		  break; // end of nightly_report_node_form
+		  
+		  case 'views_exposed_form':
+		  	if ($form_state['view']->name == 'nightly_report_review') {
+			  $form['reset'] = array(
+				'#type' => 'markup',
+				'#value' => '<input class="form-button" type="reset" value="Reset" onClick="javascript:window.location=\'/'. $form_state['view']->display['page_1']->display_options['path'] .'\';" />',
+			  );
+			}
+			
+		  break; //end of reset button on exposed filters
+		  
+	}		
+}
+
+/*
+ * Expose the added fields from hook_form_alter to CCK for proper weighting
+ */
+ 
+function nightly_report_content_extra_fields($type_name) {
+  if ($type_name =='nightly_report') {	
+		$extras['sold_job_wrapper'] = array(
+			'label' => t('Sold Job Grouping'),
+			'description' => t('Area for the Sold Jobs'),
+			'weight' => 15,
+		);
+		$extras['xmlsitemap'] =array(
+			'label' => t('XML Site map grouping'),
+			'description' => t('XML Site map area'),
+			'weight' => 30,
+		);
+	
+		return $extras;
+   }	
+}
+
+function sold_jobs_js(){
+  
+	$form_state = array('storage' => NULL, 'submitted' => FALSE);
+	$form_build_id = $_POST['form_build_id'];
+		  
+	// Add the new element to the stored form. Without adding the element
+	// to the form, Drupal is not aware of this new elements existence and
+	// will not process it. We retreive the cached form, add the element,
+	// and resave.
+	$form = form_get_cache($form_build_id, $form_state);
+	
+	$job_count= $form['sold_job_wrapper']['sold_job']['sold_job_count']['#default_value'];
+	$next_job=$job_count+1;
+	
+	//Just Some Debug stuff
+	//drupal_set_message('Previous Job count: '. $job_count);
+	//drupal_set_message('Next Job count: '. $next_job);
+	
+	//Add the new form
+	$form_element = _sold_job_form($job_count);
+		
+	$form['sold_job_wrapper']['sold_job'][$job_count] = $form_element;
+	$form['sold_job_wrapper']['sold_job']['sold_job_count']['#default_value']= $next_job;
+	
+	form_set_cache($form_build_id, $form, $form_state);
+	$form += array(
+		'#post' => $_POST,
+		'#programmed' => FALSE,
+	);
+	// Rebuild the form.
+	$form = form_builder('nightly_report_node_form', $form, $form_state);
+	
+	// Render the new output.
+	$subform = $form['sold_job_wrapper']['sold_job'];
+	$output = theme('status_messages') . drupal_get_js(). drupal_render($subform);
+	
+	drupal_json(array('status' => TRUE, 'data' => $output));
+	
+}
+
+/**
+ * Submit handler to add more jobs to the sold job form. This handler is used when
+ * javascript is not available. It makes changes to the form state and the
+ * entire form is rebuilt during the page reload.
+ */
+function nightly_report_more_jobs_submit($form, &$form_state) {
+  // Set the form to rebuild and run submit handlers.
+  /*
+  node_form_submit_build_node($form, $form_state);
+
+  // Make the changes we want to the form state.
+  if ($form_state['values']['sold_job_more']) {
+    $n = $_GET['q'] == 'sold-job/js' ? 1 : 5;
+    $form_state['sold_job_count'] = count($form_state['values']['sold_job']) + $n;
+  }
+  */
+}
+
+
+/**
+ * Sub Form for a Sold Job.
+ */
+function _sold_job_form($delta, $first_name = '', $last_name = '', $email = '',$total_price = '', $from_date = '', $to_date = '', $crew = '', $phone_home = '', $phone_mobile = '', $county = '', $amount_collected = '') {
+  $job_number = $delta+1;
+  //$form['#tree']=TRUE;
+  
+  // We'll manually set the #parents property of these fields so that
+  // their values appear in the $form_state['values']['sold-job'] array.
+  $form['first_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('First Name'),
+	'#size' => 12,
+    '#default_value' => $first_name,
+	'#weight' => 1,
+    '#parents' => array('sold_job', $delta, 'first_name'),
+	'#prefix' => t('<div class="sold-job-line"><div class="title">Sold Job # ' . $job_number . '</div><div class="sold-job-customer">'),
+  );
+
+  $form['last_name'] = array(
+     '#type' => 'textfield',
+     '#title' => t('Last Name'),
+     '#default_value' => $last_name,
+     '#size' => 20,
+     '#maxlength' => 50,
+	 '#weight' => 2,
+     '#parents' => array('sold_job', $delta, 'last_name'),
+   );
+   $form['email'] = array(
+     '#type' => 'textfield',
+     '#title' => t('Email'),
+     '#default_value' => $email,
+     '#size' => 20,
+     '#maxlength' => 200,
+	 '#weight' => 3,
+     '#parents' => array('sold_job', $delta, 'email'),
+   );
+   
+   $form['phone_home'] = array(
+     '#type' => 'textfield',
+     '#title' => t('Home Phone'),
+     '#default_value' => $phone_home,
+     '#size' => 15,
+     '#maxlength' => 20,
+	 '#weight' => 4,
+     '#parents' => array('sold_job', $delta, 'phone_home'),
+   );
+   $form['phone_mobile'] = array(
+     '#type' => 'textfield',
+     '#title' => t('Mobile Phone'),
+     '#default_value' => $phone_mobile,
+     '#size' => 15,
+     '#maxlength' => 20,
+	 '#weight' => 5,
+     '#parents' => array('sold_job', $delta, 'phone_mobile'),
+   );
+   //GET the County List from Taxonomy
+   $vid = 5;         /* <---- put correct vocabulary ID here */
+   
+   $form['county'] = array(
+     '#type' => 'select',
+	 '#title' => t('County'),
+     '#default_value' => $county,
+	 '#options'=> _sold_job_taxonomy_select_options($vid),
+	 '#weight' => 6,
+     '#parents' => array('sold_job', $delta, 'county'),
+	 '#suffix' => '</div>',
+   );
+   
+   $form['from_date'] = array(
+     '#type' => 'date_popup',
+	 '#date_format' => 'm/d/Y',
+     '#title' => t('From'),
+     '#default_value' => $from_date,
+     '#size' => 12,
+     '#maxlength' => 12,
+	 '#weight' => 7,
+     '#parents' => array('sold_job', $delta, 'from_date'),
+	 '#prefix' => '<div class="sold-job-project">',
+   );
+   $form['to_date'] = array(
+     '#type' => 'date_popup',
+	 '#date_format' => 'm/d/Y',
+     '#title' => t('To'),
+     '#default_value' => $to_date,
+     '#size' => 12,
+     '#maxlength' => 12,
+	 '#weight' => 8,
+     '#parents' => array('sold_job', $delta, 'to_date'),
+   );
+   //GET the Production Crews from Taxonomy
+    $vid = 4;         /* <---- put correct vocabulary ID here */
+    $form['crew'] = array(
+     '#type' => 'select',
+	 '#title' => t('Crew'),
+     '#default_value' => $crew,
+	 '#options'=> _sold_job_taxonomy_select_options($vid),
+	 '#weight' => 9,
+     '#parents' => array('sold_job', $delta, 'crew'),
+	 
+   );
+   $form['total_price'] = array(
+     '#type' => 'textfield',
+     '#title' => t('Total Price'),
+     '#default_value' => $total_price,
+	 '#size' => 7,
+     '#maxlength' => 7,
+	 '#weight' => 10,
+     '#parents' => array('sold_job', $delta, 'total_price'),
+	 
+   );
+   $form['amount_collected'] = array(
+     '#type' => 'textfield',
+     '#title' => t('Amount Collected'),
+     '#default_value' => $amount_collected,
+	 '#size' => 7,
+     '#maxlength' => 7,
+	 '#weight' => 11,
+     '#parents' => array('sold_job', $delta, 'amount_collected'),
+	 '#suffix' => '</div></div>',
+   );
+  
+  return $form;
+}
+
+/*
+ *Inserts Sold Job Data into the database
+ */
+function _sold_job_db_insert($node) {
+	foreach ($node->sold_job as $sold_job) {
+		if(strlen($sold_job['first_name']) && strlen($sold_job['last_name'])){ //check to see if job was entered
+			
+			//Handle User Account Stuff
+			$user_id = nightly_report_account_check_user($sold_job);
+			
+			//Update the Civicrm record
+			nightly_report_civicrm_update($user_id,$sold_job);
+			
+			//Insert the Data into the database f
+			$sql = "INSERT INTO {sold_job} (nid,uid,first_name,last_name,email,phone_home,phone_mobile,county,total_price,from_date,to_date,crew,amount_collected) 
+				VALUES (%d, %d, '%s', '%s', '%s', '%s', '%s', '%s','%s','%s','%s','%s','%s')";
+				db_query($sql, $node->nid, 
+					 $user_id['uid'],
+					 $sold_job['first_name'],
+					 $sold_job['last_name'],
+					 $sold_job['email'],
+					 $sold_job['phone_home'],
+					 $sold_job['phone_mobile'],
+					 $sold_job['county'],
+					 $sold_job['total_price'],
+					 $sold_job['from_date'],
+					 $sold_job['to_date'],
+					 $sold_job['crew'],
+					 $sold_job['amount_collected']
+				 );
+				 /*
+				 drupal_set_message(" FIRST: ". $sold_job['first_name']);
+				 drupal_set_message(" LAST: ".$sold_job['last_name']);
+				 drupal_set_message(" HOME: ".$sold_job['phone_home']);
+				 drupal_set_message(" MOBILE: ".$sold_job['phone_mobile']);
+				 drupal_set_message(" COUNTY: ".$sold_job['county']);
+				 drupal_set_message(" HOME: ".$sold_job['total_price']);
+				 drupal_set_message(" FROM: ".$sold_job['from_date']);
+				 drupal_set_message(" TO: ".$sold_job['to_date']);
+				 drupal_set_message(" CREW: ".$sold_job['crew']);
+				 drupal_set_message(" COLLECTED: ".$sold_job['amount_collected']);
+				 */
+		} //end if values entered 
+	} //end foreach loop
+}
+
+/*
+ *Creates options for select box form item in Sold Job Subform
+ */
+function _sold_job_taxonomy_select_options($vid) {
+	$terms = taxonomy_get_tree($vid);
+	$select_option_values = array();
+	foreach ($terms as $term) {	
+	$select_option_values[$term->tid] = $term->name;	}
+	
+	return $select_option_values;
+}
+
+/*
+ * Enters a default page title on Nightly Report creation
+ */
+function nightly_report_auto_title() {
+	global $user;
+	$auto_title = date("Y-m-d"). ' Nightly Report for '. $user->name ;
+	return $auto_title;
+}
+
+/*
+ **********************************************
+ * Display functions here
+ **********************************************
+ */
+ 
+/*
+ * Implement hook_theme to register the theme functions
+ */ 
+function nightly_report_theme () {
+  return array(
+    'nightly_report_sold_jobs' => array(
+      'arguments' => array('sold_jobs' => NULL)
+    )
+  );
+}
+
+ 
+ /*
+ * Theme the sold jobs
+ */
+ function theme_nightly_report_sold_jobs($sold_jobs) {
+ 	 $output = '<table class="sold-job-table">';
+	 	$output.= '<tr class="header-row">';
+		$output.= '<td>First</td>';
+		$output.= '<td>Last</td>';
+		$output.= '<td>Email</td>';
+		$output.= '<td>Home</td>';
+		$output.= '<td>Mobile</td>';
+		$output.= '<td>County</td>';
+		$output.= '<td>Total Price</td>';
+		$output.= '<td>From</td>';
+		$output.= '<td>To</td>';
+		$output.= '<td>Crew</td>';
+		$output.= '<td>Amount Collected</td>';
+		$output.= '</tr>';
+	 
+	 foreach ($sold_jobs as $sold_job){
+	 	$county = taxonomy_get_term($sold_job['county']);
+		$crew   = taxonomy_get_term($sold_job['crew']);
+		$row_class = ($row_class =='even')?'odd':'even';
+		
+		$output.= '<tr class="'.$row_class.'">';
+		$output.= '<td>'.$sold_job['first_name'].'</td>';
+		$output.= '<td>'.$sold_job['last_name'].'</td>';
+		$output.= '<td>'.$sold_job['email'].'</td>';
+		$output.= '<td>'.$sold_job['phone_home'].'</td>';
+		$output.= '<td>'.$sold_job['phone_mobile'].'</td>';
+		$output.= '<td>'.$county->name.'</td>';
+		$output.= '<td>$'.$sold_job['total_price'].'</td>';
+		$output.= '<td>'.nightly_report_convert_date($sold_job['from_date']) .'</td>';
+		$output.= '<td>'.nightly_report_convert_date($sold_job['to_date']).'</td>';
+		$output.= '<td>'.$crew->name.'</td>';
+		$output.= '<td>$'.$sold_job['amount_collected'].'</td>';
+		$output.= '</tr>';
+		
+	 }		
+	 $output.='</table>';
+	
+	return $output;
+ }
+function nightly_report_convert_date($date) {
+ //dates are passed as Y-m-d h:m:s
+ // 2010-05-14 00:00:00
+ //we want that converted to  
+ $Y = substr($date,0,4);
+ $m = substr($date,5,2);
+ $d = substr($date,8,2);
+ 
+ $convert = $m .'/'.$d.'/'.$Y; 
+ return $convert;
+
+} 
+/* 
+ * Displays User Function Reference 
+ */
+function nightly_report_user_functions() {
+  $output = '<ol>';
+  $functions = get_defined_functions();
+  foreach($functions['user'] as $function) {
+     $output .= "<li><a href='http://api.drupal.org/api/HEAD/function/$function' target='_blank'>$function</li>";
+  }
+  $output .= '</ol>';
+  return $output;
+}
+/*
+ * Handle User Account Creation
+ */
+function nightly_report_account_check_user($sold_job) {
+	$user_id=array(); 
+	if(strlen(trim($sold_job['email']))){
+		
+		
+		$sql = "SELECT uid,name,mail from {users} where mail ='%s'";
+		$result = db_query($sql, $sold_job['email']);
+		while ($row = db_fetch_object($result)) {
+				$user_id['uid'] =  $row->uid;
+				$user_id['new_account']=false;
+				$account = user_load($row->uid);
+		}
+		
+		if(!$user_id) {
+			//create user account - 9 in 'roles' is the current number for the customer account
+			$create_account = array(
+				'name' => nightly_report_account_username_creator($sold_job),
+				'mail' => $sold_job['email'],
+				'pass' => 'temp!pass',
+				'status' => 1,
+				'created' => time() - (15),
+				'access' => 0,
+				'roles' => array('9'=>'customer'),
+				
+			);
+			$account = user_save(null,$create_account);
+			$user_id['uid'] = 	$account->uid;
+			$user_id['new_account']=true;
+		}//end if check if no user exists
+	}
+	else { //no email passed so no user creation
+		$user_id['uid']=0;
+		$user_id['new_account']=false;
+	}
+	return $user_id;
+}
+/*
+ * Creates a username using the first and lastname of the person entered on the Sold Job
+ * Increments the username if it already exists i.e. John Smith 1, John Smith 2, etc 
+ */
+function nightly_report_account_username_creator($sold_job) {
+	$i =1;
+	$username_base = $sold_job['first_name'].' '.$sold_job['last_name'];
+	$username = $username_base;
+	while ( nightly_report_account_username_exists($username) ){
+		$username = $username_base .' '. $i; 
+		$i++;
+	}
+	return $username;	
+
+}
+/*
+ * Checks the database to see if the username already exists
+ */
+function nightly_report_account_username_exists($username) {
+	$sql = "SELECT name from {users} where name ='%s'";
+	$result = db_query($sql, $username);
+	if (db_result($result)){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+/*
+ * Updates the Information in the CiviCRM database
+ */
+function nightly_report_civicrm_update($user_id, $sold_job){
+	global $civicrm_root; 
+	 
+	if (module_exists('civicrm') && ($user_id['uid']>0)) {
+		civicrm_initialize(TRUE);
+		
+		/* Load the required CiviCRM API's */
+		require_once($civicrm_root.'/api/v2/Contact.php');
+		require_once($civicrm_root.'/api/UFGroup.php');
+		require_once($civicrm_root.'/api/v2/Location.php');
+		
+		$crm_id = crm_uf_get_match_id($user_id['uid']);
+		
+		//drupal_set_message('Found a CiviCRM match:'. $crm_id);	
+		
+		$params = array(
+			'contact_id'    => $crm_id,
+			'contact_type'  => 'Individual',
+			'first_name'    => $sold_job['first_name'],
+			'last_name'     => $sold_job['last_name'],
+			'display_name'  => $sold_job['first_name'] .' ' .$sold_job['last_name'],
+			'sort_name'     => $sold_job['last_name'] .', '.$sold_job['first_name'], 
+			'email'         => $sold_job['email']
+		);
+		
+		$contact = ($user_id['new_account'])? civicrm_contact_add( $params ): civicrm_contact_update( $params );
+		$update_type = ($user_id['new_account'])? "Add" : "Update";
+		
+		//drupal_set_message('After user record '. $update_type. ' with CRM id: '. $contact['contact_id']);
+		
+		if (!$user_id['new_account']){
+			$existing_locations = civicrm_location_get( array(
+								'contact_id' => $contact['contact_id'],
+								'version' => '3.0' 
+								) 
+							);
+			$phones_existing = $existing_locations['phone'];
+		}	
+		
+		$phone_home = array(
+			'phone'         => $sold_job['phone_home'],
+            'phone_type_id' => 1,
+            'is_primary' => TRUE,
+			'location_type' => 'Home',
+			'location_type_id' => 1,
+		);
+        $phone_mobile = array(
+			'phone'            => $sold_job['phone_mobile'],
+            'phone_type_id'    =>  2,
+            'location_type'    =>'Home',
+			'location_type_id' => 1
+         );
+		 // Put them in an array and then add to $params array
+        
+		//$phones_new = array( $phone_home, $phone_mobile);
+		//$phones = ($user_id['new_account']) ? $phones_new : array($phones_existing,$phones_new);
+		
+		$phones = array( $phone_home, $phone_mobile);
+		
+		
+        $params = array(
+			'version'    => '3.0',
+            'contact_id' => $contact['contact_id'],
+            'phone'      => $phones,
+            //'address'    => $address
+        );
+        $newLocation = ($user_id['new_account'])? civicrm_location_add($params): civicrm_location_update($params);
+		
+		//drupal_set_message('After user record '. $update_type. ' with CRM id: '. $contact['contact_id']);
+		
+		
+	}
+}
