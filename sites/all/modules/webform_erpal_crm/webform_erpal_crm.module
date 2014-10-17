@@ -1,0 +1,632 @@
+<?php
+
+define('WEBFORM_ERPAL_CRM_WEBFORM_TAB_URL_SUFFIX',         '/webform_erpal');
+
+define('WEBFORM_ERPAL_CRM_SERVICE_LOGIN_URL_SUFFIX',       '/user/login');
+define('WEBFORM_ERPAL_CRM_SERVICE_CONTACT_URL_SUFFIX',     '/contact');
+define('WEBFORM_ERPAL_CRM_SERVICE_ACTIVITY_URL_SUFFIX',    '/crm_activity');
+
+define('WEBFORM_ERPAL_CRM_ACTIVITY_ORIGIN_VOCABULARY_NAME', 'activity_origin');
+
+/**
+ * @file webform_erpal_crm.module
+ *
+ * @author Vadym Kononenko
+ * @date 2013-04-08
+ */
+
+/**
+ * Implemens hook_permission()
+ *
+ * @return array
+ */
+function webform_erpal_crm_permission() {
+  return array('edit webform to erpal settings' => array(
+    'title' => t('Edit webform to ERPAL settings'),
+    'description' => t('Edit a webform related ERPAL settings.'),
+  ));
+}
+
+/**
+ * Implemens custom access callback
+ *
+ * @param $node
+ * Webform node
+ *
+ * @return bool
+ * TRUE if success
+ */
+function webform_erpal_crm_access($node) {
+  return node_access('update', $node) && user_access('edit webform to erpal settings') && !empty($node->webform_erpal_crm);
+}
+
+/**
+ * Implements hook_form_alter()
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ *
+ * @return none
+ */
+function webform_erpal_crm_form_alter(&$form, &$form_state, $form_id) {
+  // Add the marker to ERPAL webform node on webform nodes editing form.
+  if ($form_id == 'webform_node_form') {
+
+    $form['webform_erpal_crm_settings'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Webform ERPAL CRM settings'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#tree' => TRUE,
+      '#access' => user_access('edit webform to erpal settings'),
+    );
+
+    $form['webform_erpal_crm_settings']['webform_erpal_crm'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable Webform ERPAL integration'),
+      '#default_value' => isset($form['#node']->nid) ? variable_get('webform_erpal_crm_' . $form['#node']->nid . '_mark', 0) : 0,
+    );
+
+    // Add own submit handler to the end of handler list. This allow us to use in those handler
+    // $form_state['nid'] and $form_state['#node'] fields on a newly created nodes.
+    $form['actions']['submit']['#submit'][] = 'webform_erpal_crm_form_submit';
+  }
+}
+
+/**
+ * Implements custom submit handler
+ *
+ * @param $form
+ * @param $form_state
+ *
+ * @return none
+ */
+function webform_erpal_crm_form_submit($form, &$form_state) {
+  $webform_erpal_crm_variable = 'webform_erpal_crm_' . $form_state['values']['nid'] . '_mark';
+
+  // Save variable name to list for uninstall procedure
+  webform_erpal_crm_remember_variable($webform_erpal_crm_variable);
+
+  // Store the 'webform_erpal_crm' settings for the current node.
+  variable_set($webform_erpal_crm_variable, $form_state['values']['webform_erpal_crm_settings']['webform_erpal_crm']);
+}
+
+/**
+ * Implements hook_node_load()
+ * Put erpal settings to node object when a webform node is loaded.
+ *
+ * @param $node
+ * @param $types
+ *
+ * @return none
+ */
+function webform_erpal_crm_node_load($nodes, $types) {
+  foreach ($nodes as $node) {
+    if ($node->type == 'webform') {
+      $webform_erpal_crm = variable_get('webform_erpal_crm_' . $node->nid . '_mark', '');
+
+      if ($webform_erpal_crm !== '') {
+        // Add the 'webform_erpal_crm' value for those nodes _only_ that have its own 'webform_erpal_crm' variables.
+        $node->webform_erpal_crm = $webform_erpal_crm;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_delete()
+ * Delete erpal marker and settings when a webform node is deleted.
+ *
+ * @param $node
+ *
+ * @return none
+ */
+function webform_erpal_crm_node_delete($node) {
+  if ($node->type == 'webform') {
+    if (isset($node->webform_erpal_crm)) {
+      $webform_erpal_crm_variable_list = array(
+        'webform_erpal_crm_' . $node->nid . '_mark',
+        'webform_erpal_crm_' . $node->nid . '_settings',
+      );
+
+      // Save variable name to list for uninstall procedure
+      $webform_erpal_crm_variables = variable_get('webform_erpal_crm_variables', array());
+      $webform_erpal_crm_variables = array_diff($webform_erpal_crm_variables, $webform_erpal_crm_variable_list);
+      variable_set('webform_erpal_crm_variables', $webform_erpal_crm_variables);
+
+      foreach ($webform_erpal_crm_variable_list as $webform_erpal_crm_variable) {
+        variable_del($webform_erpal_crm_variable);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu()
+ *
+ * @return array
+ */
+function webform_erpal_crm_menu() {
+  return array(
+    'node/%node' . WEBFORM_ERPAL_CRM_WEBFORM_TAB_URL_SUFFIX => array(
+      'title' => t('ERPAL'),
+      'description' => t('Configure webform erpal integration settings.'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('webform_erpal_crm_tab_form', 1),
+      'access callback' => 'webform_erpal_crm_access',
+      'access arguments' => array(1),
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 1,
+    ),
+    'webform_erpal_crm_autocomplete_activity_tag' => array(
+      'page callback' => 'webform_erpal_crm_autocomplete_activity_tag',
+      'access arguments' => array('edit webform to erpal settings'),
+      'type' => MENU_CALLBACK,
+    ),
+  );
+}
+
+/*
+ * Implements an activity tag autocomplete
+ */
+function webform_erpal_crm_autocomplete_activity_tag($autocomplete = '') {
+  $activity_tag_options = array();
+
+  $activity_origin_voc = taxonomy_vocabulary_machine_name_load(WEBFORM_ERPAL_CRM_ACTIVITY_ORIGIN_VOCABULARY_NAME);
+  if (!empty($activity_origin_voc)) {
+    $activity_tag_options = db_select('taxonomy_term_data', 't')
+        ->fields('t', array('name'))
+        ->condition('name', '%' . db_like($autocomplete) . '%', 'LIKE')
+        ->condition('vid', $activity_origin_voc->vid, '=')
+        ->orderBy('name')
+        ->execute()
+        ->fetchAllKeyed(0, 0);
+  } else {
+    drupal_set_message(t('The "@vocab" could not be found in the ERPAL\'s taxonomy vocabularies.' .
+                         ' Please use an already existing origin tag or add a new one.',
+                            array('@vocab' => WEBFORM_ERPAL_CRM_ACTIVITY_ORIGIN_VOCABULARY_NAME)
+                       ), 'warning', FALSE
+    );
+  }
+  drupal_json_output($activity_tag_options);
+}
+
+/**
+ * Implemens custom form
+ * Showed on the webform node tab and take this node object as an argument
+ *
+ * @param $form
+ * @param $form_state
+ * @param $node
+ *
+ * @return array
+ */
+function webform_erpal_crm_tab_form($form, &$form_state, $node) {
+  global $base_url;
+
+  drupal_set_title( t('Webform ERPAL CRM settings') );
+
+  $settings = variable_get('webform_erpal_crm_' . $node->nid . '_settings', array());
+
+  // Note: We can use 'node->vid' also if it will be needed.
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $node->nid,
+  );
+
+  $form['vertical_tabs'] = array(
+    '#type' => 'vertical_tabs',
+  );
+
+  $form['auth'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Authentication'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+    '#group' => 'vertical_tabs',
+  );
+
+
+  $form['auth']['username'] = array(
+    '#type' => 'textfield',
+    '#title' => t('ERPAL Username'),
+    '#default_value' => isset($settings['auth']['username']) ? $settings['auth']['username'] : '',
+    '#required' => TRUE,
+  );
+
+  $form['auth']['password'] = array(
+    '#type' => 'password',
+    '#title' => t('ERPAL Password'),
+    '#required' => FALSE,
+  );
+
+  $form['auth']['password_save'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Save password'),
+    '#default_value' => isset($settings['auth']['password']) ? 0 : 1,
+    '#description' => t('New password value will save only if this checkbox is set.'),
+  );
+
+  // Add the 'erpal_contact' entity mapped fields
+  $form['contact'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Contact'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+    '#group' => 'vertical_tabs',
+  );
+
+  $form['contact']['url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Url'),
+    '#default_value' => isset($settings['maps']['contact']['url']) ? $settings['maps']['contact']['url'] : $base_url . '/rest/basic',
+    '#required' => TRUE,
+  );
+
+  $form['contact']['firstname'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Firstname'),
+    '#default_value' => isset($settings['maps']['contact']['firstname']) ? $settings['maps']['contact']['firstname'] : '',
+    '#required' => FALSE,
+  );
+
+  $form['contact']['lastname'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Lastname'),
+    '#default_value' => isset($settings['maps']['contact']['lastname']) ? $settings['maps']['contact']['lastname'] : '',
+    '#required' => FALSE,
+  );
+
+  $form['contact']['company'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Company'),
+    '#default_value' => isset($settings['maps']['contact']['company']) ? $settings['maps']['contact']['company'] : '',
+    '#required' => FALSE,
+  );
+
+  $form['contact']['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('EMail'),
+    '#default_value' => isset($settings['maps']['contact']['email']) ? $settings['maps']['contact']['email'] : '',
+    '#required' => TRUE,
+  );
+
+  $form['contact']['tag'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Origin'),
+    '#autocomplete_path' => 'webform_erpal_crm_autocomplete_activity_tag',
+    '#default_value' => isset($settings['maps']['contact']['tag']) ? $settings['maps']['contact']['tag'] : 'Website',
+    '#required' => FALSE,
+  );
+
+  $form['contact']['phone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Phone'),
+    '#default_value' => isset($settings['maps']['contact']['phone']) ? $settings['maps']['contact']['phone'] : '',
+    '#required' => FALSE,
+  );
+
+  $form['contact']['token_help'] = array(
+    '#title' => t('Replacement patterns'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => t('Attension, use only tokens for fields that appear in apropriated webform nodes ' .
+                        '(field node NID is showed in the token help in brackets). Foreign tokens will not replaced by token applying. ' .
+                        'Current webform NID is \'@nid\'',
+                            array('@nid' => $node->nid)
+                      ),
+  );
+
+  $form['contact']['token_help']['help'] = array(
+    '#theme' => 'token_tree',
+    '#token_types' => array('webform'),
+    '#global_types' => FALSE,
+  );
+
+  // Add the 'erpal_activity' entity mapped fields
+  $form['activity'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Activity'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+    '#group' => 'vertical_tabs',
+  );
+
+  $form['activity']['url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Url'),
+    '#default_value' => isset($settings['maps']['activity']['url']) ? $settings['maps']['activity']['url'] : $base_url . '/rest/activity',
+    '#required' => TRUE,
+  );
+
+  $form['activity']['message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Message'),
+    '#default_value' => isset($settings['maps']['activity']['message']) ? $settings['maps']['activity']['message'] : '',
+    '#required' => TRUE,
+  );
+
+
+  $form['activity']['tag'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Origin'),
+    '#autocomplete_path' => 'webform_erpal_crm_autocomplete_activity_tag',
+    '#default_value' => isset($settings['maps']['activity']['tag']) ? $settings['maps']['activity']['tag'] : 'Website',
+    '#required' => FALSE,
+  );
+
+  $form['activity']['token_help'] = array(
+    '#title' => t('Replacement patterns'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => t('Attension, use only tokens for fields that appear in apropriated webform nodes ' .
+                        '(field node NID is showed in the token help in brackets). Foreign tokens will not replaced by token applying. ' .
+                        'Current webform NID is \'@nid\'',
+                            array('@nid' => $node->nid)
+                      ),
+  );
+
+  $form['activity']['token_help']['help'] = array(
+    '#theme' => 'token_tree',
+    '#token_types' => array('webform'),
+    '#global_types' => FALSE,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements a custom form submit handler
+ * Save all form data in a single drupal valiable
+ *
+ * @param $form
+ * @param $form_state
+ *
+ * @return none
+ */
+function webform_erpal_crm_tab_form_submit($form, &$form_state) {
+  $webform_erpal_crm_variable = 'webform_erpal_crm_' . $form_state['values']['nid'] . '_settings';
+
+  // Save variable name to list for uninstall procedure
+  webform_erpal_crm_remember_variable($webform_erpal_crm_variable);
+
+  $settings = variable_get($webform_erpal_crm_variable, array());
+  if ($form_state['values']['auth']['password_save'] == 0 && isset($settings['auth']['password'])) {
+    $form_state['values']['auth']['password'] = $settings['auth']['password'];
+  }
+
+  $settings = array(
+    'auth' => array(
+      'username'    => check_plain($form_state['values']['auth']['username']),
+
+      // Skip 'check_plain()' for the password field value as it is not show as html
+      'password'    => $form_state['values']['auth']['password'],
+    ),
+    'maps' => array(
+      'contact' => array(
+        'url'       => check_plain($form_state['values']['contact']['url']),
+        'firstname' => check_plain($form_state['values']['contact']['firstname']),
+        'lastname'  => check_plain($form_state['values']['contact']['lastname']),
+        'company'   => check_plain($form_state['values']['contact']['company']),
+        'email'     => check_plain($form_state['values']['contact']['email']),
+        'tag'       => check_plain($form_state['values']['contact']['tag']),
+        'phone'     => check_plain($form_state['values']['contact']['phone']),
+      ),
+      'activity' => array(
+        'url'       => check_plain($form_state['values']['activity']['url']),
+        'message'   => check_plain($form_state['values']['activity']['message']),
+        'tag'       => check_plain($form_state['values']['activity']['tag']),
+      ),
+    ),
+  );
+
+  drupal_set_message(t('Configuration form was saved successfully.'));
+  variable_set($webform_erpal_crm_variable, $settings);
+}
+
+
+/**
+ * Webform submission insert processing.
+ *
+ * @param $node
+ * The Webform node.
+ *
+ * @param $submission
+ * The Webform submission form data.
+ *
+ * @return none
+ */
+function webform_erpal_crm_webform_submission_insert($node, $submission) {
+  if ($submission->is_draft == 1 || empty($node->webform_erpal_crm)) {
+    return;
+  }
+
+  // Safe 'check_plain()' calls for all webform fields values.
+  foreach ($submission->data as $key => $value) {
+    foreach ($value['value'] as $value_key => $value_content) {
+      $submission->data[$key]['value'][$value_key] = check_plain($value_content);
+    }
+  }
+
+  $settings = variable_get('webform_erpal_crm_' . $node->nid . '_settings', array());
+  if (isset($settings['maps'])) {
+    foreach($settings['maps'] as &$fields) {
+      foreach($fields as &$field) {
+        $field = token_replace($field, array('webform' => $submission));
+      }
+    }
+
+    webform_erpal_crm_service_call($settings);
+  } else {
+    webform_erpal_crm_log(
+      t('Webform ERPAL configuration is not set for webform node \'%nid\' Go to the \'!erpal_tab_link\' page and set it up properly.',
+        array(
+          '%nid' => $node->nid,
+          '!erpal_tab_link' => l(t('Webform ERPAL configuration'), 'node/' . $node->nid  . WEBFORM_ERPAL_CRM_WEBFORM_TAB_URL_SUFFIX),
+        )
+      ),
+      array(),
+      WATCHDOG_ERROR
+    );
+  }
+}
+
+
+/**
+ * Pass form data to the ERPAL services
+ *
+ * @param $webform_data
+ * Prepared Webform submission form data.
+ *
+ * @return bool
+ * TRUE if success
+ */
+function webform_erpal_crm_service_call($webform_data) {
+  $base_url_contact = $webform_data['maps']['contact']['url'];
+  $base_url_activity = $webform_data['maps']['activity']['url'];
+
+  // Login info
+  $data = array(
+    'username' => $webform_data['auth']['username'],
+    'password' => $webform_data['auth']['password'],
+  );
+  $data = json_encode($data);
+
+  $headers = array(
+    'Content-Type' => 'application/json',
+  );
+
+  $options = array(
+    'headers' => $headers,
+    'data'    => $data,
+    'method'  => 'POST',
+  );
+
+  $response = drupal_http_request($base_url_contact . WEBFORM_ERPAL_CRM_SERVICE_LOGIN_URL_SUFFIX, $options);
+  // Check if login was successful
+  if (webform_erpal_crm_webservice_error($response, 'login')) {
+    return FALSE;
+  } else {
+    $data = json_decode($response->data);
+
+    // Now recycle the login cookie we recieved in the first request
+    $options['headers']['Cookie'] = $data->session_name . '=' . $data->sessid;
+  }
+
+  // Create a contact first
+  $data = array(
+    'contact' => array(
+      'firstname' => $webform_data['maps']['contact']['firstname'],
+      'lastname'  => $webform_data['maps']['contact']['lastname'],
+      'company'   => $webform_data['maps']['contact']['company'],
+      'email'     => $webform_data['maps']['contact']['email'],
+      'origin'    => $webform_data['maps']['contact']['tag'],
+      'phone'     => $webform_data['maps']['contact']['phone'],
+
+      'criteria' => array(
+        // FIXME: Should we use the email as primary key while search customer contact instead of he(she)'s first and last names?
+        //'firstname' => $webform_data['maps']['contact']['firstname'],
+        //'lastname'  => $webform_data['maps']['contact']['lastname'],
+
+        // FIXME: Current code of 'erpal_lib_helper_entity_check_exits()' function require a another format of 'criteria':
+        //'email'     => $webform_data['maps']['contact']['email'],
+
+        // This is work arround to correct work with current erpal services.
+        'field_email' => array(
+          'field' => 'value',
+          'value' => $webform_data['maps']['contact']['email'],
+        ),
+       ), //these are the fields used to check if a contact already exists
+    ),
+  );
+  $options['data'] = json_encode($data);
+
+  $response = drupal_http_request($base_url_contact . WEBFORM_ERPAL_CRM_SERVICE_CONTACT_URL_SUFFIX, $options);
+  if (webform_erpal_crm_webservice_error($response, 'contact')) {
+    return FALSE;
+  }
+
+  $data = json_decode($response->data);
+
+  // Contact node returned
+  $node = $data->node;
+
+  // Now create the activity with the given contact
+  $data = array(
+    'crm_activity' => array(
+      'title'  => mb_strcut($webform_data['maps']['activity']['message'], 0, 65, 'UTF-8'),
+      'body'   => $webform_data['maps']['activity']['message'],
+      'origin'    => $webform_data['maps']['activity']['tag'],
+      'customer_nid' => $node->nid,
+    ),
+  );
+  $options['data'] = json_encode($data);
+
+  $response = drupal_http_request($base_url_activity . WEBFORM_ERPAL_CRM_SERVICE_ACTIVITY_URL_SUFFIX, $options);
+  if (webform_erpal_crm_webservice_error($response, 'activity')) {
+    return FALSE;
+  }
+
+  drupal_set_message(t('Your data was successfully sent to the ERPAL CRM.'));
+
+  return TRUE;
+}
+
+/**
+ * Check_response returned by webservice
+ *
+ * @param $response
+ * A response returned by the 'drupal_http_request()' function
+ *
+ * @return bool
+ * FALSE if success
+ */
+function webform_erpal_crm_webservice_error($response, $stage = '') {
+  if ($response->code != 200) {
+    // Server error, at least no 200 response
+    webform_erpal_crm_log('[' . $stage . '] Status: \'' . $response->status_message . '\'', array(), WATCHDOG_WARNING);
+
+    return TRUE;
+  }
+  // Return FALSE if response is normal
+  return FALSE;
+}
+
+/**
+ * Logs the Errors
+ *
+ * @param $message
+ * A message to logging to the drupal watchdog
+ *
+ * @return none
+ */
+function webform_erpal_crm_log($message, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL) {
+  watchdog('webform to erpal', $message, $variables, $severity, $link);
+}
+
+/**
+ * Add variable name to remember list
+ *
+ * @param $name
+ * Variable name to remember
+ *
+ * @return none
+ */
+function webform_erpal_crm_remember_variable($name) {
+  $variables = variable_get('webform_erpal_crm_variables', array());
+  if (!in_array($name, $variables)) {
+    $variables[] = $name;
+  }
+  variable_set('webform_erpal_crm_variables', $variables);
+}

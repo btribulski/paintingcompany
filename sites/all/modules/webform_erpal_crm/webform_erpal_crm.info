@@ -1,0 +1,22 @@
+name = "Webform to ERPAL CRM"
+description = "Adds functionality to add node form submits as activities into ERPAL CRM via ERPAL webservice"
+
+dependencies[] = token
+dependencies[] = taxonomy
+dependencies[] = webform
+dependencies[] = webform_tokens
+
+project = "webform_erpal_crm"
+package = "ERPAL CRM"
+
+core = "7.x"
+version = "7.x-1.0-dev"
+
+php = "5.2.4"
+
+; Information added by drupal.org packaging script on 2013-10-26
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "webform_erpal_crm"
+datestamp = "1382755739"
+

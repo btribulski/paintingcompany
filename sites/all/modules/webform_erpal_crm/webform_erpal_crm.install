@@ -1,0 +1,76 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the webform_erpal_crm module.
+ */
+
+/**
+ * Implementation of hook_install().
+ * Install variable default value on install.
+ */
+function webform_erpal_crm_install() {
+  variable_set('webform_erpal_crm_variables', array());
+
+  _webform_erpal_crm_install_terms();
+}
+
+/**
+ * Implementation of hook_uninstall().
+ * Remove variables on uninstall.
+ */
+function webform_erpal_crm_uninstall() {
+  // Uninstall variables from saved list
+  $webform_erpal_crm_variables = variable_get('webform_erpal_crm_variables', array());
+
+  foreach ($webform_erpal_crm_variables as $webform_erpal_crm_variable) {
+    variable_del($webform_erpal_crm_variable);
+  }
+
+  variable_del('webform_erpal_crm_variables');
+}
+
+/**
+ * Perform an import of terms.
+ */
+function _webform_erpal_crm_install_terms() {
+  // Activity Origin taxonomy terms
+  $activity_origin_terms = array(
+    'Called us',
+    'Cold call',
+    'Email',
+    'Event',
+    'Personal contacted',
+    'Website',
+  );
+  $activity_origin_vocabulary = array(
+    'name'         => 'Activity origin',
+    'machine_name' => 'activity_origin',
+  );
+
+  _webform_erpal_crm_save_terms($activity_origin_terms, $activity_origin_vocabulary);
+}
+
+/**
+* Save an array of terms into a specified vocabulary.
+*/
+function _webform_erpal_crm_save_terms($terms, $voc) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load($voc['machine_name']);
+  if (empty($vocabulary)) {
+    $vocabulary = new stdClass();
+    $vocabulary->name         = $voc['name'];
+    $vocabulary->machine_name = $voc['machine_name'];
+
+    taxonomy_vocabulary_save($vocabulary);
+    $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary->machine_name);
+
+    drupal_set_message(t('Vocabulary @name was installed.', array('@name' => $vocabulary->name)));
+
+    foreach($terms as $weight => $term) {
+      $data = new stdClass();
+      $data->name = $term;
+      $data->vid = $vocabulary->vid;
+      $data->weight = $weight;
+      taxonomy_term_save($data);
+    }
+  }
+}

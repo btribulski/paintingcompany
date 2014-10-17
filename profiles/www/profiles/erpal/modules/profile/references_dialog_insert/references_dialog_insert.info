@@ -1,0 +1,20 @@
+name = References Dialog Insert
+description = Provides Insert functionality for references dialog
+package = Fields
+core = 7.x
+
+files[] = inc/references_dialog_insert.inc
+files[] = inc/references_dialog_insert_form.inc
+
+dependencies[] = entityreference
+dependencies[] = references_dialog
+
+
+
+
+; Information added by drush on 2014-10-15
+version = "7.x-stable-dev"
+core = "7.x"
+project = "erpal"
+datestamp = "1413383660"
+
