@@ -1,9 +1,0 @@
-<?php
-
-/**
-* Installation and update tasks
-*/
-
-function erpal_layout_helper_update_7001(&$sandbox) {
-  module_enable(array('erpal_search_pane'));
-}
