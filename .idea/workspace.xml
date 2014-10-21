@@ -2,133 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="872edb6d-66bf-4bac-ab60-6953fe477420" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/stockholmsyndrome/images/bg_tab.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/colorbox.ai" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/stockholmsyndrome/colorbox_stockholmsyndrome_screen.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/images/controls.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/default/images/controls.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/plain/images/controls.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/stockholmsyndrome/images/controls.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/images/loading_animation.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/default/images/loading_animation.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/plain/images/loading_animation.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/stockholmsyndrome/images/loading_animation.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/images/loading_background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/default/images/loading_background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/plain/images/loading_background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/CHANGELOG.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_filefield_widget/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_imagefield_widget/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_filefield_widget/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_imagefield_widget/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/content/ajax.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox-insert-image.tpl.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.admin.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.api.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/drush/colorbox.drush.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.info" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.install" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/colorbox.jquery.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/js/colorbox.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.make" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.module" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.theme.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/colorbox.variable.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/views/colorbox.views.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/js/colorbox_admin_settings.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/views/colorbox_handler_field_colorbox.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/js/colorbox_inline.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/js/colorbox_load.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/default/colorbox_style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/plain/colorbox_style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/stockholmsyndrome/colorbox_style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/default/colorbox_style.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/plain/colorbox_style.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/colorbox/styles/stockholmsyndrome/colorbox_style.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_1.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_1.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_1.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_2.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_2.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_2.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_3.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_3.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_3.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_4.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_4.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example/example_4.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries/example_info_file.libraries.info" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-ar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-bg.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-bn.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-ca.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-cs.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-da.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-de.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-es.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-et.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-fa.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-fi.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-fr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-gl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-gr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-he.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-hr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-hu.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-id.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-it.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-ja.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-kr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-lt.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-lv.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/jquery.colorbox-min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-my.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-nl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-no.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-pl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-pt-br.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-ro.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-ru.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-si.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-sk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-sr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-sv.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-tr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-uk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-zh-CN.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/i18n/jquery.colorbox-zh-TW.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/libraries/colorbox/jquery.colorbox.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/libraries.api.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/libraries.drush.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/libraries.info" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/libraries.install" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/libraries.module" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/libraries.test" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/modules/libraries_test_module/libraries_test_module.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/modules/libraries_test_module/libraries_test_module.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/modules/libraries_test_module/libraries_test_module.info" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/modules/libraries_test_module/libraries_test_module.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/modules/libraries_test_module/libraries_test_module.module" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/modules/libraries_test_module/libraries_test_module_post_load.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/themes/libraries_test_theme/libraries_test_theme.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/themes/libraries_test_theme/libraries_test_theme.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/themes/libraries_test_theme/libraries_test_theme.info" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/themes/libraries_test_theme/libraries_test_theme.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_filefield_widget/mfw.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_filefield_widget/multiupload_filefield_widget.field.inc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_filefield_widget/multiupload_filefield_widget.info" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_filefield_widget/multiupload_filefield_widget.module" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_filefield_widget/multiupload_filefield_widget.test" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_imagefield_widget/multiupload_imagefield_widget.info" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/multiupload_imagefield_widget/multiupload_imagefield_widget.module" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sites/all/modules/libraries/tests/themes/libraries_test_theme/template.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto-1847444-34.patch" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto.module" afterPath="$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto.module" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="paintingcompany.iws" />
@@ -154,7 +29,49 @@
     <favorites_list name="paintingcompany" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="README.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/jqmulti/README.txt">
+          <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="76" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1035">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/views_slideshow_liquid_slider/README.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="28" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pathauto-1847444-34.patch" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto-1847444-34.patch">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="1" selection-start="258" selection-end="979" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pathauto.module" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="374" column="3" selection-start="12581" selection-end="13281" vertical-scroll-proportion="0.5716034" vertical-offset="5023" max-vertical-offset="12825">
+              <folding>
+                <marker date="1413924053657" expanded="true" signature="6669:6751" placeholder="SELECT pid F..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -177,6 +94,7 @@
         <option value="$PROJECT_DIR$/includes/bootstrap.inc" />
         <option value="$PROJECT_DIR$/sites/default/settings.php" />
         <option value="$PROJECT_DIR$/sites/all/modules/migrate_d2d/README.txt" />
+        <option value="$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto.module" />
       </list>
     </option>
   </component>
@@ -285,6 +203,94 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views_slideshow_liquid_slider" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="liquidslider" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="paintingcompany" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="profiles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -347,14 +353,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="178" y="82" width="1570" height="998" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22774869" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23298429" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -386,6 +392,23 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/jqmulti/README.txt">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="76" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/views_slideshow_liquid_slider/README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="28" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="690">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sites/all/modules/migrate_d2d/README.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="35" selection-start="527" selection-end="527" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="360" />
@@ -602,6 +625,39 @@
     <entry file="file://$PROJECT_DIR$/sites/all/modules/migrate_d2d/README.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="35" selection-start="527" selection-end="527" vertical-scroll-proportion="0.22833724" vertical-offset="0" max-vertical-offset="854" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/jqmulti/README.txt">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="76" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/views_slideshow_liquid_slider/README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="28" selection-start="43" selection-end="43" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto-1847444-34.patch">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="1" selection-start="258" selection-end="979" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/profiles/erpal/modules/contrib/pathauto/pathauto.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="374" column="3" selection-start="12581" selection-end="13281" vertical-scroll-proportion="0.5716034" vertical-offset="5023" max-vertical-offset="12825">
+          <folding>
+            <marker date="1413924053657" expanded="true" signature="6669:6751" placeholder="SELECT pid F..." />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
