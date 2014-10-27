@@ -131,3 +131,38 @@ function corolla_fieldset($vars) {
 
   return $output;
 }
+
+/*
+ * Implements hook_menu_local_tasks
+ *
+ * Overrides the ctools hijacking of the local tasks tabs at the
+ * top of the page
+ */
+
+function corolla_menu_local_tasks() {
+  $output = '';
+
+
+  $primary = menu_primary_local_tasks();
+  $secondary = menu_secondary_local_tasks();
+  if (
+
+  module_exists('ctools')) {
+    module_load_include('inc', 'ctools', 'includes/menu');
+    ctools_menu_local_tasks(0);
+    ctools_menu_local_tasks(1);
+    $primary = ctools_menu_primary_local_tasks();
+    $secondary = ctools_menu_secondary_local_tasks();
+  }
+  if (!empty(
+
+  $primary)) {
+    $output .= '<ul class="tabs primary">\n' . $primary . '</ul>\n';
+  }
+  if (!empty($secondary)) {
+    $output .= '<ul class="tabs secondary">\n' . $secondary . '</ul>\n';
+  }
+  return
+
+    $output;
+}
