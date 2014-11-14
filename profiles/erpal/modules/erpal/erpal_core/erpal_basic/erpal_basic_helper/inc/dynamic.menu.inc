@@ -32,11 +32,14 @@ function _erpal_basic_helper_alter_local_tasks_output(&$data) {
 /**
 * Implements hook_menu_local_tasks_alter()
 */
-function erpal_basic_helper_menu_local_tasks_alter(&$data, $router_item, $root_path) {  
-  //add javascript to show local tasks as popup. This cannot be done in @see _erpal_basic_helper_alter_local_tasks_output as this output will be cached and this is why the JS file will not be delivered in the output process.
-  $mod_path = drupal_get_path('module', 'erpal_basic_helper');
-  $js_path = $mod_path.'/js/local_tasks.js';
-  drupal_add_js($js_path);
+function erpal_basic_helper_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  global $theme;
+  if($theme == 'erpal'){
+    //add javascript to show local tasks as popup. This cannot be done in @see _erpal_basic_helper_alter_local_tasks_output as this output will be cached and this is why the JS file will not be delivered in the output process.
+    $mod_path = drupal_get_path('module', 'erpal_basic_helper');
+    $js_path = $mod_path.'/js/local_tasks.js';
+    drupal_add_js($js_path);
+  }
 }
 
 /**
@@ -44,7 +47,10 @@ function erpal_basic_helper_menu_local_tasks_alter(&$data, $router_item, $root_p
 */
 function erpal_basic_helper_cat_local_task_alter(&$data, $router_item, $root_path) {  
   //finally at the end...
-  _erpal_basic_helper_alter_local_tasks_output($data); //to correct markup
+  global $theme;
+  if($theme == 'erpal'){
+    _erpal_basic_helper_alter_local_tasks_output($data); //to correct markup
+  }
 }
 
 

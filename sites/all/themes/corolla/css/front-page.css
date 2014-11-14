@@ -1,0 +1,21 @@
+/* CSS for the front page */
+
+/*Slideshow*/
+#views_slideshow_liquid_slider_main_front_page_slideshow-block .panel-container .views-field-title{
+    width: auto;
+
+}
+
+#views_slideshow_liquid_slider_main_front_page_slideshow-block .panel-container .views-field-field-slide-image{
+    width: auto;
+    width: 40%;
+    float: left;
+
+}
+#views_slideshow_liquid_slider_main_front_page_slideshow-block .panel-container .views-field-body{
+
+    padding: 10px;
+    width: 50%;
+    float: left;
+
+}
