@@ -15,12 +15,12 @@
     width: 100%;
 }
 #branding {
-  padding: 45px 0 48px 25px;
-  display: table-cell;
+    padding: 15px 0 18px 25px;
+    display: table-cell;
 }
 .region-header {
-  padding: 45px 25px 48px 0;
-  display: table-cell;
+    padding: 15px 25px 18px 0;
+    display: table-cell;
 }
 .region-header .block {
   float: right;

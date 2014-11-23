@@ -26,6 +26,7 @@
   stylesheets[all][] = css/front-page.css
   stylesheets[all][] = css/corolla.settings.style.css
   stylesheets[all][] = color/colors.css
+  stylesheets[all][] = css/paintingcompany.css
   stylesheets[print][] = css/print.css
 
   ; Internet Explorer Stylesheets

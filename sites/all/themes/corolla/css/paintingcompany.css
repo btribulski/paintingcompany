@@ -1,0 +1,42 @@
+/* Custom CSS for the painting company website */
+
+/* Photo Gallery CSS */
+
+.node-image-gallery .field-type-image figure {
+    display: inline;
+    float: left;
+    margin: 10px;
+    border: 4px solid #CCCCCC;
+    padding: 5px;
+}
+
+.view-image-gallery-listing td {
+    width: 25%;
+    text-align: center;
+    padding: 15px;
+    vertical-align: top;
+}
+
+.view-image-gallery-listing .views-field-field-images img {
+    border: 2px solid #CCCCCC;
+    padding: 3px;
+}
+
+/* Blocks */
+
+/* Header - Contact us */
+#block-block-1 .block-content {
+    text-align: center;
+}
+
+#block-block-1 h3 {
+    font-size: 0.8em;
+}
+
+/* Footer */
+
+#block-block-2 p {
+    text-align: center;
+    margin: 0;
+}
+
