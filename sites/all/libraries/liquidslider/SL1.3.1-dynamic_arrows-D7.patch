@@ -1,0 +1,84 @@
+--- js/jquery.liquid-slider.js  2013-04-22 00:55:13.638098333 +0200
++++ js/jquery.liquid-slider.min.js      2013-04-22 00:38:01.250112137 +0200
+@@ -413,17 +413,15 @@
+       // If the tab is 0 or panelCount minus the two continuous clones
+       if (self.currentTab === 0 || self.currentTab === (self.panelCount - 2) * ~~(self.options.continuous)) {
+         // Fade out the left and make sure the right is faded in (used for on load)
+-        (self.$leftArrow).fadeOut(self.options.hideSideArrowsDuration, function () {
+-          $(this).show().css({visibility: "hidden"});
+-        });
++        (self.$leftArrow).css({visibility: "hidden"});
++        
+         if ((self.$rightArrow).css('visibility') === 'hidden' && (!self.options.hoverArrows || self.hoverOn)) {
+           (self.$rightArrow).css({opacity: 1, visibility: "visible"});
+         }
+       } else if (self.currentTab === (self.panelCount - (~~(self.options.continuous) * 2) - 1) || self.currentTab === -1) {
+         // Fade out the right and make sure the left is faded in (used for on load)
+-        (self.$rightArrow).fadeOut(self.options.hideSideArrowsDuration, function () {
+-          $(this).show().css({visibility: "hidden"});
+-        });
++        (self.$rightArrow).css({visibility: "hidden"});
++       
+         if ((self.$leftArrow).css('visibility') === 'hidden' && (!self.options.hoverArrows || self.hoverOn)) {
+           (self.$leftArrow).css({opacity: 1, visibility: "visible"});
+         }
+@@ -431,10 +429,10 @@
+         // Fade in on all other tabs
+         if ((self.$leftArrow).css('visibility') === 'hidden') {
+           // Duration * 3 because we're using different fade methods (looks similar this way)
+-          (self.$leftArrow).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, self.options.hideSideArrowsDuration * 3);
++          (self.$leftArrow).css({opacity: 1, visibility: "visible"});
+         }
+         if ((self.$rightArrow).css('visibility') === 'hidden') {
+-          (self.$rightArrow).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, self.options.hideSideArrowsDuration * 3);
++          (self.$rightArrow).css({opacity: 1, visibility: "visible"});
+         }
+       }
+     },
+@@ -558,8 +556,8 @@
+             if (self.options.hideSideArrows) {
+               self.hideArrows();
+             } else {
+-              (self.$leftArrow).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, self.options.hideSideArrowsDurations);
+-              (self.$rightArrow).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, self.options.hideSideArrowsDurations);
++              (self.$leftArrow).css({opacity: 1, visibility: "visible"});
++              (self.$rightArrow).css({opacity: 1, visibility: "visible"});
+             }
+           }
+           // Pause on Hover
+@@ -575,12 +573,10 @@
+           // Hover Arrows
+           if (self.options.hoverArrows && self.options.dynamicArrows) {
+             self.hoverOn = false;
+-            (self.$leftArrow).fadeOut(self.options.hideSideArrowsDuration, function () {
+-              $(this).show().css({visibility: "hidden"});
+-            });
+-            (self.$rightArrow).fadeOut(self.options.hideSideArrowsDuration, function () {
+-              $(this).show().css({visibility: "hidden"});
+-            });
++            (self.$leftArrow).css({visibility: "hidden"});
++            
++            (self.$rightArrow).css({visibility: "hidden"});
++           
+           }
+ 
+           // Pause on Hover
+@@ -993,8 +989,8 @@
+ 
+         // Show arrows if hoverArrows is disabled
+         if (!self.options.hoverArrows && self.options.dynamicArrows) {
+-          (self.$leftArrow).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, self.options.hideSideArrowsDuration * 3);
+-          (self.$rightArrow).css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, self.options.hideSideArrowsDuration * 3);
++          (self.$leftArrow).css({opacity: 1, visibility: "visible"});
++          (self.$rightArrow).css({opacity: 1, visibility: "visible"});
+         }
+ 
+         this.transition();
+@@ -1211,4 +1207,4 @@
+     swipe: true
+   };
+ 
+-})(jQuery, window, document);
+\ No newline at end of file
++})(jQuery, window, document);
+
