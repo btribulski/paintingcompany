@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Painting Company Feature feature.
+ */
+
+include_once 'painting_company_feature.features.inc';
